@@ -189,7 +189,7 @@ def _recon_lcs(x, y, exclusive=True):
 
     recon_list = list(map(lambda x: x[0], _recon(i, j)))
     return Ngrams(recon_list, exclusive=exclusive)
-    return recon_tuple
+    # return recon_tuple
 
 
 def multi_rouge_n(sequences, scores_ids, n=2, exclusive=True):
@@ -339,7 +339,7 @@ def _union_lcs(evaluated_sentences, reference_sentence,
 
 
 def rouge_l_summary_level(
-        evaluated_sentences, reference_sentences, raw_results=False, exclusive=True, **_):
+        evaluated_sentences, reference_sentences, raw_results=False, exclusive=None, **_):
     """
     Computes ROUGE-L (summary level) of two text collections of sentences.
     http://research.microsoft.com/en-us/um/people/cyl/download/papers/rouge-working-note-v1.3.1.pdf
@@ -371,28 +371,23 @@ def rouge_l_summary_level(
         raise ValueError("Collections must contain at least 1 sentence.")
 
     # total number of words in reference sentences
-    m = len(
-        Ngrams(
+
+    ref_Ngrams = Ngrams(
             _split_into_words(reference_sentences),
-            exclusive=exclusive))
+            exclusive=False)
+
+    hyp_Ngrams = Ngrams(
+            _split_into_words(evaluated_sentences),
+            exclusive=False)
+
+    m = len(ref_Ngrams)
 
     # total number of words in evaluated sentences
-    n = len(
-        Ngrams(
-            _split_into_words(evaluated_sentences),
-            exclusive=exclusive))
+    n = len(hyp_Ngrams)
 
-    # print("m,n %d %d" % (m, n))
-    union_lcs_sum_across_all_references = 0
-    union = Ngrams(exclusive=exclusive)
-    for ref_s in reference_sentences:
-        lcs_count, union = _union_lcs(evaluated_sentences,
-                                      ref_s,
-                                      prev_union=union,
-                                      exclusive=exclusive)
-        union_lcs_sum_across_all_references += lcs_count
+    llcs = _len_lcs(ref_Ngrams._ngrams, hyp_Ngrams._ngrams)
 
-    llcs = union_lcs_sum_across_all_references
+
     r_lcs = llcs / m
     p_lcs = llcs / n
 

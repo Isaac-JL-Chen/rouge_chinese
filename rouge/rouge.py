@@ -4,6 +4,7 @@ import six
 import rouge.rouge_score as rouge_score
 import io
 import os
+import re
 
 
 class FilesRouge:
@@ -88,6 +89,14 @@ class Rouge:
             else:
                 self.stats = Rouge.DEFAULT_STATS
 
+    def cut_sent(self, para):
+        para = re.sub('([。！？\?])([^”’])', r"\1\n\2", para) 
+        para = re.sub('(\.{6})([^”’])', r"\1\n\2", para) 
+        para = re.sub('(\…{2})([^”’])', r"\1\n\2", para)
+        para = re.sub('([。！？\?][”’])([^，。！？\?])', r'\1\n\2', para)
+        para = para.rstrip()  
+        return para.split("\n")
+
     def get_scores(self, hyps, refs, avg=False, ignore_empty=False):
         if isinstance(hyps, six.string_types):
             hyps, refs = [hyps], [refs]
@@ -111,9 +120,9 @@ class Rouge:
         scores = []
         for hyp, ref in zip(hyps, refs):
             sen_score = {}
-
-            hyp = [" ".join(_.split()) for _ in hyp.split(".") if len(_) > 0]
-            ref = [" ".join(_.split()) for _ in ref.split(".") if len(_) > 0]
+            
+            hyp = [" ".join(_.split()) for _ in self.cut_sent(hyp) if len(_) > 0]
+            ref = [" ".join(_.split()) for _ in self.cut_sent(ref) if len(_) > 0]
 
             for m in self.metrics:
                 fn = Rouge.AVAILABLE_METRICS[m]
@@ -140,8 +149,8 @@ class Rouge:
 
         count = 0
         for (hyp, ref) in zip(hyps, refs):
-            hyp = [" ".join(_.split()) for _ in hyp.split(".") if len(_) > 0]
-            ref = [" ".join(_.split()) for _ in ref.split(".") if len(_) > 0]
+            hyp = [" ".join(_.split()) for _ in self.cut_sent(hyp) if len(_) > 0]
+            ref = [" ".join(_.split()) for _ in self.cut_sent(ref) if len(_) > 0]
 
             for m in self.metrics:
                 fn = Rouge.AVAILABLE_METRICS[m]
