@@ -339,7 +339,7 @@ def _union_lcs(evaluated_sentences, reference_sentence,
 
 
 def rouge_l_summary_level(
-        evaluated_sentences, reference_sentences, raw_results=False, exclusive=None, **_):
+        evaluated_sentences, reference_sentences, raw_results=False, exclusive=None, **_): # add exclusive argument just for convenience. It is an useless argument
     """
     Computes ROUGE-L (summary level) of two text collections of sentences.
     http://research.microsoft.com/en-us/um/people/cyl/download/papers/rouge-working-note-v1.3.1.pdf

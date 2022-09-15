@@ -1,9 +1,13 @@
 # Rouge
 *A full Python librarie for the ROUGE metric [(paper)](http://www.aclweb.org/anthology/W04-1013).*
 
-### Disclaimer
-This implementation is independant from the "official" ROUGE script (aka. `ROUGE-155`).   
-Results may be *slighlty* different, see [discussions in #2](https://github.com/pltrdy/rouge/issues/2).
+### Difference
+
+This library based on the [code](https://github.com/pltrdy/rouge) from pltrdy. Using the original code to compute rouge score in Chinese would meet some problems. For example, the stack overflow issue would occur and the Chinese sentences are not splited correctly. This code solves these problems and generates more accurate rouge scores in Chinese NLP tasks.
+
+1. Changed the sentence cutting mechanism. Original code would split sentences only by '.'. The rouge-chinese would split sentences regarding Chinese punctuation in a more logical way.
+2. Optimized memory usage in rouge-L score calculation. The new code did not generate longest common sequence since most of users did not need it. This part would be extremely memory costly since it contains iterative algorithm which would create lots of stacks. The new code could calculate the length of the longest common sequence without generating them. 
+3. More accurate rouge scores. The original code replaced 'official' rouge-L scores with union rouge-L scores, which would certainly give users different results. Thanks to the memory optimization, the new code could give users 'official' rouge scores.
 
 ## Quickstart
 #### Clone & Install
