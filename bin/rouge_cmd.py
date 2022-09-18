@@ -2,7 +2,7 @@
 import argparse
 import json
 import os
-from rouge import Rouge, FilesRouge
+from rouge_chinese import Rouge, FilesRouge
 
 
 METRICS_CHOICES = {k.split('rouge-')[1].upper(): k

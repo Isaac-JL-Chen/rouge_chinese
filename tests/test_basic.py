@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-import rouge
+import rouge_chinese
 import json
 
 
@@ -13,8 +13,8 @@ class BasicTest(TestCase):
         with open(self.data_path) as f:
             self.data = json.load(f)
 
-        self.rouge = rouge.Rouge()
-        self.files_rouge = rouge.FilesRouge()
+        self.rouge = rouge_chinese.Rouge()
+        self.files_rouge = rouge_chinese.FilesRouge()
 
     def test_one_sentence(self):
         for d in self.data[:1]:
