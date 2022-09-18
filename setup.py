@@ -26,7 +26,6 @@ setup(
     version=version,
     description="Python ROUGE Score Implementation for Chinese Language Task (official rouge score)",
     url="https://github.com/Isaac-JL-Chen/rouge_chinese.git",
-    # download_url="https://github.com/pltrdy/rouge/archive/%s.tar.gz" % version,
     author="Isaac-JL-Chen",
     author_email="chn.jianlin@gmail.com",
     keywords=["NL", "CL", "natural language processing",
