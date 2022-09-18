@@ -2,6 +2,7 @@
 *A full Python librarie for the ROUGE metric in Chinese Language Task [(paper)](http://www.aclweb.org/anthology/W04-1013).*
 
 专用于计算中文rouge指标的python库。
+
 ### Difference
 
 This library based on the [code](https://github.com/pltrdy/rouge) from pltrdy. Using the original code to compute rouge score in Chinese would meet some problems. For example, the stack overflow issue would occur and the Chinese sentences are not splited correctly. This code solves these problems and generates more accurate and "official" rouge scores in Chinese NLP tasks.
@@ -12,7 +13,7 @@ This library based on the [code](https://github.com/pltrdy/rouge) from pltrdy. U
 
 ### 不同点
 
-rouge-chinese库基于[rouge](https://github.com/pltrdy/rouge)库，针对中文NLP任务做出了改进。使用原始的rouge库计算中文的rouge score会遇到一些问题，例如，会产生栈溢出以及占据过大内存的问题（长文章甚至会占据数十GB），以及不计算union rouge score时不支持对中文文章的分句。新的rouge-chinese库不仅从根源上解决了这些问题，优化了算法，rouge-chinese库还舍弃了默认的rouge score近似指标union rouge score，转而通过优化后的算法提供用户最原始、准确和官方的rouge score指标。
+rouge-chinese库基于[rouge](https://github.com/pltrdy/rouge)库，针对中文NLP任务做出了改进。使用原始的rouge库计算中文的rouge score会遇到一些问题，例如，会产生栈溢出以及占据过大内存的问题（长文章甚至会占据数十GB），以及不支持对中文文章的分句。新的rouge-chinese库不仅从根源上解决了这些问题，优化了算法，rouge-chinese库还舍弃了默认的rouge score近似指标union rouge score，转而通过优化后的算法提供用户最原始、准确和官方的rouge score指标。
 
 1. 改进了中文的分句机制。原始的rouge库只根据'.'进行分句。rouge-chinese库除了英文标点外，还对中文的常见分句标点（。！？...）进行了囊括。
 2. 优化了rouge-L score计算中的内存占用。rouge-chinese库计算rouge-L score时不再需要生成最长子序列，就可以直接计算出最长子序列的长度，并得出最终的rouge-L score。最长子序列的生成是算法中内存消耗最大的一块，由于其中含有递归算法，他会占用大量的栈，尤其是在遇到长文章时，容易导致内存溢出或栈溢出的问题。rouge-chinese库成功的绕过了这一步骤。
@@ -150,3 +151,5 @@ rouge_chinese -f ./tests/hyp.txt ./ref.txt
 # Avg scoring - 2 files
 rouge_chinese -f ./tests/hyp.txt ./ref.txt --avg
 ```
+
+Github adress: https://github.com/Isaac-JL-Chen/rouge_chinese

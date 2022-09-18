@@ -28,7 +28,7 @@ setup(
     url="https://github.com/Isaac-JL-Chen/rouge_chinese.git",
     author="Isaac-JL-Chen",
     author_email="chn.jianlin@gmail.com",
-    keywords=["NL", "CL", "natural language processing",
+    keywords=["NLP", "natural language processing", "metric", "rouge", "algorithm",
               "computational linguistics", "summarization","chinese"],
     packages=find_packages(),
     classifiers=[
