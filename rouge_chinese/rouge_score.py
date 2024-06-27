@@ -347,7 +347,7 @@ def rouge_l_summary_level(
     Calculated according to:
     R_lcs = SUM(1, u)[LCS<union>(r_i,C)]/m
     P_lcs = SUM(1, u)[LCS<union>(r_i,C)]/n
-    F_lcs = (2*R_lcs*P_lcs) / (R_lcs * P_lcs)
+    F_lcs = (2*R_lcs*P_lcs) / (R_lcs + P_lcs)
 
     where:
     SUM(i,u) = SUM from i through u
